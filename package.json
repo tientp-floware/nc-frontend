@@ -1,9 +1,8 @@
 {
-    "name": "angular-8-registration-login-example",
+    "name": "fefloud",
     "version": "1.0.0",
     "repository": {
-        "type": "git",
-        "url": "https://github.com/cornflourblue/angular-8-registration-login-example.git"
+        "type": "git"
     },
     "scripts": {
         "build": "webpack --mode production",
