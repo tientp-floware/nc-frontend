@@ -1,0 +1,156 @@
+﻿<h1>Hi {{currentUser?.uid}}!</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Flo Cloud files</h4>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12">
+                    <form class="form-inline" novalidate [formGroup]="formImport">
+                        <div class="form-group col-md-7">
+                            <input type="file" class="custom-file-input" formControlName="importFile"
+                                id="importFile" (change)="onFileChange($event.target.files)">
+                            <label class="custom-file-label" #labelImport for="importFile">
+                                <i class="fa fa-file"></i>
+                            </label>
+                        </div>
+                        <button class="btn btn-outline-secondary offset-2 col-md-3" type="submit" (click)="import()">
+                            <i class="fa fa-upload"></i> Upload
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div id="main-content" class="file_manager">
+            <div class="container">
+                <div class="row clearfix">
+                    <div *ngFor="let file of userDriver.data" class="col-lg-3 col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="file">
+                                <a href="javascript:void(0);">
+                                    <div class="hover">
+                                        <button (click)="delete(file.filename)" type="button" class="btn btn-icon btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <button *ngIf="file.type != 'directory'" (click)="download(file.filename)" type="button"
+                                            class="btn btn-icon btn-success ml-2">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="{{file.fileType}} text-info"></i>
+                                    </div>
+                                    <div class="file-name">
+                                        <p class="m-b-5 text-muted">{{file.basename}}</p>
+                                        <small>Size: {{file.formatBytes}} <span class="date text-muted">{{file.lastmod}}</span></small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div> <!-- end files -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+.file_manager .file a:hover .hover,
+.file_manager .file .file-name small {
+    display: block
+}
+
+.file_manager .file {
+    padding: 0 !important
+}
+
+.file_manager .file .icon {
+    text-align: center
+}
+
+
+.file_manager .file {
+    position: relative;
+    border-radius: .55rem;
+    overflow: hidden
+}
+
+.file_manager .file .image,
+.file_manager .file .icon {
+    max-height: 180px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: top
+}
+
+.file_manager .file .hover {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none;
+    transition: all 0.2s ease-in-out
+}
+
+.file_manager .file a:hover .hover {
+    transition: all 0.2s ease-in-out
+}
+
+.file_manager .file .icon {
+    padding: 15px 10px;
+    display: table;
+    width: 100%
+}
+
+.file_manager .file .icon i {
+    display: table-cell;
+    font-size: 30px;
+    vertical-align: middle;
+    color: #777;
+    line-height: 100px
+}
+
+.file_manager .file .file-name {
+    padding: 10px;
+    border-top: 1px solid #f7f7f7
+}
+
+.file_manager .file .file-name small .date {
+    float: right
+}
+
+.folder {
+    padding: 20px;
+    display: block;
+    color: #777
+}
+
+@media only screen and (max-width: 992px) {
+    .file_manager .nav-tabs {
+        padding-left: 0;
+        padding-right: 0
+    }
+
+    .file_manager .nav-tabs .nav-item {
+        display: inline-block
+    }
+}
+
+.card {
+    background: #fff;
+    transition: .5s;
+    border: 0;
+    margin-bottom: 30px;
+    border-radius: .55rem;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+
+a:hover {
+    text-decoration: none;
+}
+</style>
